@@ -1,6 +1,11 @@
 @echo off
 
-REM cli Folder
+SET "target=api"
+echo Generating README.md for %target%
+cd ..\%target%\
+godocdown \github.com\NlaakStudios\Blockchain\%target% > README.md
+cd ..
+
 SET "target=cli"
 echo Generating README.md for %target%
 cd ..\%target%\
