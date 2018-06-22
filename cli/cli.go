@@ -6,9 +6,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/NlaakStudios/Blockchain/config"
 	"github.com/joho/godotenv"
 	//"os"
-	"../config"
 )
 
 type CLI struct {

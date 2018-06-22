@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"../core"
-	"../utils"
+	"github.com/NlaakStudios/Blockchain/core"
+	"github.com/NlaakStudios/Blockchain/utils"
 )
 
 func (cli *CLI) showBalance(address, nodeID string) {

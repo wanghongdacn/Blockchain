@@ -8,7 +8,7 @@ import (
 	"crypto/sha256"
 	"log"
 
-	"../utils"
+	"github.com/NlaakStudios/Blockchain/utils"
 	"golang.org/x/crypto/ripemd160"
 )
 

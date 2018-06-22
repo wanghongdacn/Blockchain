@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"../core"
+	"github.com/NlaakStudios/Blockchain/core"
 )
 
 func (cli *CLI) send(from, to string, amount int, nodeID string, mineNow bool) {

@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 
-	"../core"
+	"github.com/NlaakStudios/Blockchain/core"
 )
 
 func (cli *CLI) createWallet(nodeID string) {

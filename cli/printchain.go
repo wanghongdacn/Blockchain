@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"../core"
+	"github.com/NlaakStudios/Blockchain/core"
 )
 
 func (cli *CLI) printChain(nodeID string) {

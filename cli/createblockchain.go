@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"../core"
+	"github.com/NlaakStudios/Blockchain/core"
 )
 
 func (cli *CLI) createBlockchain(address, nodeID string) {
