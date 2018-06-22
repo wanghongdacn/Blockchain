@@ -1,15 +1,17 @@
-package cli
+package api
 
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/NlaakStudios/Blockchain/config"
 
 	"github.com/gin-gonic/gin"
 )
 
 // InitBlockchainAPI starts the built in RestAPI Router
 func InitBlockchainAPI() {
-	fmt.Printf("Starting RESTAPI %s\n", ":3001")
+	fmt.Printf("Starting RESTAPI %s\n", ":4000")
 
 	gin.SetMode(gin.ReleaseMode)
 
@@ -26,7 +28,7 @@ func InitBlockchainAPI() {
 	}
 
 	// Start and run the server
-	router.Run(":3001")
+	go router.Run(":3001")
 }
 
 /********************************************************************
@@ -35,7 +37,7 @@ func InitBlockchainAPI() {
 func defaultEndpoint(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"name":    "GWF Blockchain API",
-		"version": version(),
+		"version": config.Version(),
 		"public":  "usgae",
 		"/":       "default, show version and endpoints",
 		"/wallet/balance/{address}":         "Get balance of address",

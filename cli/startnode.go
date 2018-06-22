@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/NlaakStudios/Blockchain/api"
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
 func (cli *CLI) startNode(nodeID, minerAddress string) {
-	//Start GoRoutine for RestAPI
-	//InitBlockchainAPI()
 
 	fmt.Printf("Starting node %s...", nodeID)
 	fmt.Printf("Miner address detected. ")
@@ -22,4 +21,6 @@ func (cli *CLI) startNode(nodeID, minerAddress string) {
 	}
 	core.StartServer(nodeID, minerAddress)
 	fmt.Printf("Success.\n")
+	//Start GoRoutine for RestAPI
+	api.InitBlockchainAPI()
 }

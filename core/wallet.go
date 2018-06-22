@@ -1,12 +1,12 @@
 package core
 
 import (
-	"fmt"
 	"bytes"
 	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
 	"crypto/sha256"
+	"fmt"
 	"log"
 
 	"github.com/NlaakStudios/Blockchain/utils"
@@ -71,7 +71,7 @@ func HashPubKey(pubKey []byte) []byte {
 
 // ValidateAddress check if address if valid
 func ValidateAddress(address string) bool {
-	fmt.Printf("Validating address %s...",address)
+	fmt.Printf("Validating address %s...", address)
 	pubKeyHash := utils.Base58Decode([]byte(address))
 	actualChecksum := pubKeyHash[len(pubKeyHash)-addressChecksumLen:]
 	version := pubKeyHash[0]

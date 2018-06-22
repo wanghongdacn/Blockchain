@@ -17,7 +17,7 @@ type CLI struct {
 
 func (cli *CLI) printUsage() {
 	fmt.Println("\n")
-	fmt.Println("Global Wealth & Freedom Daemon Version", version())
+	fmt.Println("Global Wealth & Freedom Daemon Version", config.Version())
 	fmt.Println("Nlaak Studios (www.nlaak.com)")
 	fmt.Println("-----------------------------------------------------------------------------------------\n")
 	fmt.Println("Usage:")

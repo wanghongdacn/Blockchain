@@ -92,6 +92,14 @@ func SaveCoinInfo()
 ```
 SaveCoinInfo saves current coin info to config.json file
 
+#### func  Version
+
+```go
+func Version() string
+```
+version returns the application version as a properly formed string per the
+semantic versioning 2.0.0 spec (http://semver.org/).
+
 #### type CoinStruct
 
 ```go

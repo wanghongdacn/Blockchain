@@ -5,13 +5,6 @@
 
 ## Usage
 
-#### func  InitBlockchainAPI
-
-```go
-func InitBlockchainAPI()
-```
-InitBlockchainAPI starts the built in RestAPI Router
-
 #### type CLI
 
 ```go
