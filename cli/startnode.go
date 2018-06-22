@@ -10,6 +10,7 @@ import (
 
 func (cli *CLI) startNode(nodeID, minerAddress string) {
 
+	cli.NodeID = nodeID
 	fmt.Printf("Starting node %s...", nodeID)
 	fmt.Printf("Miner address detected. ")
 	if len(minerAddress) > 0 {
@@ -19,8 +20,9 @@ func (cli *CLI) startNode(nodeID, minerAddress string) {
 			log.Panic("Failed: Wrong miner address!")
 		}
 	}
-	core.StartServer(nodeID, minerAddress)
+	core.StartServer(cli.NodeID, minerAddress)
 	fmt.Printf("Success.\n")
+	
 	//Start GoRoutine for RestAPI
 	api.InitBlockchainAPI()
 }

@@ -80,6 +80,13 @@ const (
 	PhoneTypeBusiness = byte(3)
 )
 
+const (
+	//NodePort is used for blockchain communication/syncing
+	NodePort = uint(3000)
+	//APIPort is used for REST API access to nbode
+	APIPort = uint(4000)
+)
+
 //EmailStruct contains a breakdown of a email
 type EmailStruct struct {
 	name   string //bob1234

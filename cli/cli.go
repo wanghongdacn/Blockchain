@@ -13,6 +13,7 @@ import (
 
 //CLI is the main client structure
 type CLI struct {
+	NodeID   string
 	CoinInfo config.CoinStruct
 }
 
@@ -47,16 +48,22 @@ func (cli *CLI) validateArgs() {
 func (cli *CLI) Run() {
 	cli.CoinInfo = config.GetCoinInfo()
 
+	//Validate the command line arguments
 	cli.validateArgs()
 
+	//Load settings from enviroment file
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	nodeID := os.Getenv("NODE_ID")
-	if nodeID == "" {
-		fmt.Printf("NODE_ID env. var is not set!")
+	//Defaul node port (CONST)
+	cli.NodeID = string(config.NodePort)
+
+	//Get NodePort override from .enc config (optional)
+	envNodeID := os.Getenv("NODE_ID")
+	if envNodeID != "" {
+		fmt.Printf("Overriding default Node port %s with .env value of %s", string(config.NodePort), envNodeID)
 		os.Exit(1)
 	}
 
@@ -134,7 +141,7 @@ func (cli *CLI) Run() {
 			getBalanceCmd.Usage()
 			os.Exit(1)
 		}
-		cli.showBalance(*getBalanceAddress, nodeID)
+		cli.showBalance(*getBalanceAddress)
 	}
 
 	if createBlockchainCmd.Parsed() {
@@ -142,24 +149,24 @@ func (cli *CLI) Run() {
 			createBlockchainCmd.Usage()
 			os.Exit(1)
 		}
-		cli.createBlockchain(*createBlockchainAddress, nodeID)
-		cli.PopulateWallets(*createBlockchainAddress, nodeID)
+		cli.createBlockchain(*createBlockchainAddress)
+		cli.PopulateWallets(*createBlockchainAddress)
 	}
 
 	if createWalletCmd.Parsed() {
-		cli.createWallet(nodeID)
+		cli.createWallet()
 	}
 
 	if listAddressesCmd.Parsed() {
-		cli.listAddresses(nodeID)
+		cli.listAddresses()
 	}
 
 	if printChainCmd.Parsed() {
-		cli.printChain(nodeID)
+		cli.printChain()
 	}
 
 	if reindexUTXOCmd.Parsed() {
-		cli.reindexUTXO(nodeID)
+		cli.reindexUTXO()
 	}
 
 	if sendCmd.Parsed() {
@@ -168,7 +175,7 @@ func (cli *CLI) Run() {
 			os.Exit(1)
 		}
 
-		cli.send(*sendFrom, *sendTo, *sendAmount, nodeID, *sendMine)
+		cli.send(*sendFrom, *sendTo, *sendAmount, *sendMine)
 	}
 
 	if startNodeCmd.Parsed() {

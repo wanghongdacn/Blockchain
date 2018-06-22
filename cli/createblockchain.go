@@ -7,7 +7,7 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) createBlockchain(address, nodeID string) {
+func (cli *CLI) createBlockchain(address string) {
 	fmt.Printf("Creating new blockchain with primary wallet address of %s.\n", address)
 	if !core.ValidateAddress(address) {
 		log.Panic("ERROR: Address is not valid")
@@ -17,7 +17,7 @@ func (cli *CLI) createBlockchain(address, nodeID string) {
 
 	//utils.CreateDirIfNotExist("data")
 
-	bc := core.CreateBlockchain(address, nodeID)
+	bc := core.CreateBlockchain(address, cli.NodeID)
 	defer bc.DB.Close()
 
 	UTXOSet := core.UTXOSet{bc}

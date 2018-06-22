@@ -1,6 +1,8 @@
 package api
 
 import (
+
+	//"github.com/NlaakStudios/Blockchain/cli"
 	"fmt"
 	"net/http"
 
@@ -38,9 +40,10 @@ func defaultEndpoint(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"name":    "GWF Blockchain API",
 		"version": config.Version(),
-		"public":  "usgae",
+		"public":  "usage",
 		"/":       "default, show version and endpoints",
 		"/wallet/balance/{address}":         "Get balance of address",
+		"/wallet/history/{address}":         "Get transaction history of address",
 		"/wallets/list":                     "list of all addresses",
 		"authenticated":                     "usage",
 		"/wallet/send/{amount}/{from}/{to}": "Send amount from to",
@@ -48,6 +51,7 @@ func defaultEndpoint(c *gin.Context) {
 }
 
 func getBalanceEndpoint(c *gin.Context) {
+	//balance := cli.GetBalance("{address}")
 	c.JSON(http.StatusOK, gin.H{
 		"message": "getBalance",
 	})

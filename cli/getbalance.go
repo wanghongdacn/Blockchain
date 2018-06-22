@@ -8,11 +8,11 @@ import (
 	"github.com/NlaakStudios/Blockchain/utils"
 )
 
-func (cli *CLI) showBalance(address, nodeID string) {
+func (cli *CLI) showBalance(address string) {
 	if !core.ValidateAddress(address) {
 		log.Panic("ERROR: Address is not valid")
 	}
-	bc := core.NewBlockchain(nodeID)
+	bc := core.NewBlockchain(cli.NodeID)
 	UTXOSet := core.UTXOSet{bc}
 	defer bc.DB.Close()
 
@@ -28,14 +28,14 @@ func (cli *CLI) showBalance(address, nodeID string) {
 	fmt.Printf("Balance of '%s': %d\n", address, balance)
 }
 
-func (cli *CLI) getBalance(address, nodeID string) int {
+func (cli *CLI) GetBalance(address string) int {
 
 	//fmt.Println("getBalance(%s, %s)", address, nodeID)
 	if !core.ValidateAddress(address) {
 		log.Panic("ERROR: Address is not valid")
 	}
 
-	bc := core.NewBlockchain(nodeID)
+	bc := core.NewBlockchain(cli.NodeID)
 	UTXOSet := core.UTXOSet{bc}
 	defer bc.DB.Close()
 

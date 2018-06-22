@@ -7,8 +7,8 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) printChain(nodeID string) {
-	bc := core.NewBlockchain(nodeID)
+func (cli *CLI) printChain() {
+	bc := core.NewBlockchain(cli.NodeID)
 	defer bc.DB.Close()
 
 	bci := bc.Iterator()

@@ -7,7 +7,7 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) send(from, to string, amount int, nodeID string, mineNow bool) {
+func (cli *CLI) send(from, to string, amount int, mineNow bool) {
 	if !core.ValidateAddress(from) {
 		log.Panic("ERROR: Sender address is not valid")
 	}
@@ -15,11 +15,11 @@ func (cli *CLI) send(from, to string, amount int, nodeID string, mineNow bool) {
 		log.Panic("ERROR: Recipient address is not valid")
 	}
 
-	bc := core.NewBlockchain(nodeID)
+	bc := core.NewBlockchain(cli.NodeID)
 	UTXOSet := core.UTXOSet{bc}
 	defer bc.DB.Close()
 
-	wallets, err := core.NewWallets(nodeID)
+	wallets, err := core.NewWallets(cli.NodeID)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -42,7 +42,7 @@ func (cli *CLI) send(from, to string, amount int, nodeID string, mineNow bool) {
 	fmt.Println("Success!")
 }
 
-func (cli *CLI) PopulateWallets(from string, nodeID string) {
+func (cli *CLI) PopulateWallets(from string) {
 
 	fmt.Printf("Creating core wallets and funding them from wallet %s.\n", from)
 	if !core.ValidateAddress(from) {
@@ -51,7 +51,7 @@ func (cli *CLI) PopulateWallets(from string, nodeID string) {
 
 	//Open Wallets file
 	fmt.Println("Opening wallets.")
-	wallets, err := core.NewWallets(nodeID)
+	wallets, err := core.NewWallets(cli.NodeID)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -60,12 +60,12 @@ func (cli *CLI) PopulateWallets(from string, nodeID string) {
 	fmt.Printf("Accessing wallet %s\n", from)
 	wallet := wallets.GetWallet(from)
 	fmt.Printf("Getting balance from wallet %s\n", from)
-	balance := cli.getBalance(from, nodeID)
+	balance := cli.GetBalance(from)
 	fmt.Printf("Your Primary Blockchain wallet balance is %d\n", balance)
 
 	//Open the blockchain
 	fmt.Println("Opening blockchain.")
-	bc := core.NewBlockchain(nodeID)
+	bc := core.NewBlockchain(cli.NodeID)
 	UTXOSet := core.UTXOSet{bc}
 	defer bc.DB.Close()
 
@@ -88,7 +88,7 @@ func (cli *CLI) PopulateWallets(from string, nodeID string) {
 
 	//Save Wallet file
 	fmt.Println("Saving Wallets.")
-	wallets.SaveToFile(nodeID)
+	wallets.SaveToFile(cli.NodeID)
 	fmt.Printf("Wallets DB Updated\n")
 
 	//TODO: See if wallet has enough to send amount
