@@ -8,7 +8,8 @@ import (
 	"github.com/NlaakStudios/Blockchain/utils"
 )
 
-func (cli *CLI) showBalance(address string) {
+//ShowBalance show the balance of the given wallet
+func (cli *CLI) ShowBalance(address string) {
 	if !core.ValidateAddress(address) {
 		log.Panic("ERROR: Address is not valid")
 	}

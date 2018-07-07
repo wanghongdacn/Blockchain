@@ -6,7 +6,8 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) createWallet() {
+//CreateWallet creates a new wallet address
+func (cli *CLI) CreateWallet() {
 	wallets, _ := core.NewWallets(cli.NodePort)
 	address := wallets.CreateWallet()
 	wallets.SaveToFile(cli.NodePort)

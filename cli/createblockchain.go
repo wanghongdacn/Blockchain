@@ -7,7 +7,8 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) createBlockchain(address string) {
+//CreateBlockchain creates an new with an associated master wallet
+func (cli *CLI) CreateBlockchain(address string) {
 	fmt.Printf("Creating new blockchain with primary wallet address of %s.\n", address)
 	if !core.ValidateAddress(address) {
 		log.Panic("ERROR: Address is not valid")

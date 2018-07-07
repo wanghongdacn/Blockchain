@@ -7,7 +7,8 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) listAddresses() {
+//ListAddresses show all addresses to stdout
+func (cli *CLI) ListAddresses() {
 	wallets, err := core.NewWallets(cli.NodePort)
 	if err != nil {
 		log.Panic(err)

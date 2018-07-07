@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -44,10 +43,32 @@ func (cli *CLI) validateArgs() {
 	}
 }
 
+//Initialize initialiaes the blockchain
+func (cli *CLI) Initialize() {
+	//Load settings from enviroment file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//Defaul node port (CONST)
+	cli.NodePort = config.NodePort
+
+	//Get NodePort override from .enc config (optional)
+	envNodePort := os.Getenv("NODE_PORT")
+	if envNodePort != "" && envNodePort != cli.NodePort {
+		fmt.Printf("Overriding default Node port %s with .env value of %s", string(config.NodePort), envNodePort)
+		//os.Exit(1)
+	}
+}
+
+func (cli *CLI) Version() string {
+	return config.Version()
+}
+
+/*
 // Run parses command line arguments and processes commands
 func (cli *CLI) Run() {
-
-	cli.CoinInfo = config.GetCoinInfo()
 
 	//Validate the command line arguments
 	cli.validateArgs()
@@ -142,7 +163,7 @@ func (cli *CLI) Run() {
 			getBalanceCmd.Usage()
 			os.Exit(1)
 		}
-		cli.showBalance(*getBalanceAddress)
+		cli.ShowBalance(*getBalanceAddress)
 	}
 
 	if createBlockchainCmd.Parsed() {
@@ -150,24 +171,24 @@ func (cli *CLI) Run() {
 			createBlockchainCmd.Usage()
 			os.Exit(1)
 		}
-		cli.createBlockchain(*createBlockchainAddress)
+		cli.CreateBlockchain(*createBlockchainAddress)
 		cli.PopulateWallets(*createBlockchainAddress)
 	}
 
 	if createWalletCmd.Parsed() {
-		cli.createWallet()
+		cli.CreateWallet()
 	}
 
 	if listAddressesCmd.Parsed() {
-		cli.listAddresses()
+		cli.ListAddresses()
 	}
 
 	if printChainCmd.Parsed() {
-		cli.printChain()
+		cli.PrintChain()
 	}
 
 	if reindexUTXOCmd.Parsed() {
-		cli.reindexUTXO()
+		cli.ReIndexUTXO()
 	}
 
 	if sendCmd.Parsed() {
@@ -180,14 +201,14 @@ func (cli *CLI) Run() {
 	}
 
 	if startNodeCmd.Parsed() {
-		/*
-			nodeID := os.Getenv("NODE_PORT")
-			if nodeID == "" {
-				startNodeCmd.Usage()
-				os.Exit(1)
-			}
-		*/
-		cli.startNode(cli.NodePort, *startNodeMiner)
+
+		//	nodeID := os.Getenv("NODE_PORT")
+		//	if nodeID == "" {
+		//		startNodeCmd.Usage()
+		//		os.Exit(1)
+		//	}
+
+		cli.StartNode(cli.NodePort, *startNodeMiner)
 	}
 
 	if versionCmd.Parsed() {
@@ -195,3 +216,4 @@ func (cli *CLI) Run() {
 	}
 
 }
+*/

@@ -6,7 +6,8 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) reindexUTXO() {
+//ReIndexUTXO redoes the chain index
+func (cli *CLI) ReIndexUTXO() {
 	bc := core.NewBlockchain(cli.NodePort)
 	UTXOSet := core.UTXOSet{bc}
 	UTXOSet.Reindex()

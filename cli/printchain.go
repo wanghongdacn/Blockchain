@@ -7,7 +7,8 @@ import (
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
-func (cli *CLI) printChain() {
+//PrintChain prints the blockchain out to stdout
+func (cli *CLI) PrintChain() {
 	bc := core.NewBlockchain(cli.NodePort)
 	defer bc.DB.Close()
 
