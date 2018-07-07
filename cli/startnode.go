@@ -21,8 +21,4 @@ func (cli *CLI) startNode(nodeID, minerAddress string) {
 	}
 	core.StartServer(cli.NodePort, minerAddress)
 	fmt.Printf("Success.\n")
-
-	//Start GoRoutine for RestAPI
-	cli.api = API{}
-	cli.api.InitRESTAPI()	
 }
