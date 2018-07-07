@@ -15,7 +15,6 @@ import (
 type CLI struct {
 	NodePort string
 	CoinInfo config.CoinStruct
-	api      API
 }
 
 //printUsage diplay commandline usage information to the user.
