@@ -14,7 +14,7 @@
             "host": "127.0.0.1",
             "program": "${fileDirname}",
             "env": {},
-            "args": ["version"],
+            "args": ["startnode","-miner", "1PQZzb7fjoutj8vfbrUkMB7qiMjdMKQaJn"],
             "showLog": true
         }
     ]

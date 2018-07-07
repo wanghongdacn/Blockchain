@@ -7,7 +7,7 @@ import (
 )
 
 func (cli *CLI) reindexUTXO() {
-	bc := core.NewBlockchain(cli.NodeID)
+	bc := core.NewBlockchain(cli.NodePort)
 	UTXOSet := core.UTXOSet{bc}
 	UTXOSet.Reindex()
 

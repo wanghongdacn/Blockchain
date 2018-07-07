@@ -17,7 +17,7 @@ func (cli *CLI) createBlockchain(address string) {
 
 	//utils.CreateDirIfNotExist("data")
 
-	bc := core.CreateBlockchain(address, cli.NodeID)
+	bc := core.CreateBlockchain(address, cli.NodePort)
 	defer bc.DB.Close()
 
 	UTXOSet := core.UTXOSet{bc}

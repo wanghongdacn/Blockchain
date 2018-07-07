@@ -13,8 +13,9 @@ import (
 
 //CLI is the main client structure
 type CLI struct {
-	NodeID   string
+	NodePort string
 	CoinInfo config.CoinStruct
+	api      API
 }
 
 //printUsage diplay commandline usage information to the user.
@@ -46,6 +47,7 @@ func (cli *CLI) validateArgs() {
 
 // Run parses command line arguments and processes commands
 func (cli *CLI) Run() {
+
 	cli.CoinInfo = config.GetCoinInfo()
 
 	//Validate the command line arguments
@@ -58,13 +60,13 @@ func (cli *CLI) Run() {
 	}
 
 	//Defaul node port (CONST)
-	cli.NodeID = string(config.NodePort)
+	cli.NodePort = config.NodePort
 
 	//Get NodePort override from .enc config (optional)
-	envNodeID := os.Getenv("NODE_ID")
-	if envNodeID != "" {
-		fmt.Printf("Overriding default Node port %s with .env value of %s", string(config.NodePort), envNodeID)
-		os.Exit(1)
+	envNodePort := os.Getenv("NODE_PORT")
+	if envNodePort != "" && envNodePort != cli.NodePort {
+		fmt.Printf("Overriding default Node port %s with .env value of %s", string(config.NodePort), envNodePort)
+		//os.Exit(1)
 	}
 
 	getBalanceCmd := flag.NewFlagSet("getbalance", flag.ExitOnError)
@@ -179,12 +181,14 @@ func (cli *CLI) Run() {
 	}
 
 	if startNodeCmd.Parsed() {
-		nodeID := os.Getenv("NODE_ID")
-		if nodeID == "" {
-			startNodeCmd.Usage()
-			os.Exit(1)
-		}
-		cli.startNode(nodeID, *startNodeMiner)
+		/*
+			nodeID := os.Getenv("NODE_PORT")
+			if nodeID == "" {
+				startNodeCmd.Usage()
+				os.Exit(1)
+			}
+		*/
+		cli.startNode(cli.NodePort, *startNodeMiner)
 	}
 
 	if versionCmd.Parsed() {

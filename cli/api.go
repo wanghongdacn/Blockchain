@@ -1,8 +1,6 @@
-package api
+package cli
 
 import (
-
-	//"github.com/NlaakStudios/Blockchain/cli"
 	"fmt"
 	"net/http"
 
@@ -11,9 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// InitBlockchainAPI starts the built in RestAPI Router
-func InitBlockchainAPI() {
-	fmt.Printf("Starting RESTAPI %s\n", ":4000")
+//API is the main client structure
+type API struct {
+	RESTPort string
+}
+
+// InitRESTAPI starts the built in RestAPI Router
+func (api *API) InitRESTAPI() {
+	fmt.Printf("Starting REST on port %s...", api.RESTPort)
 
 	gin.SetMode(gin.ReleaseMode)
 
@@ -30,7 +33,8 @@ func InitBlockchainAPI() {
 	}
 
 	// Start and run the server
-	go router.Run(":3001")
+	go router.Run(fmt.Sprintf("localhost:%s", api.RESTPort))
+	fmt.Printf("Success.\n")
 }
 
 /********************************************************************

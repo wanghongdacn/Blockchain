@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/NlaakStudios/Blockchain/api"
 	"github.com/NlaakStudios/Blockchain/core"
 )
 
 func (cli *CLI) startNode(nodeID, minerAddress string) {
 
-	cli.NodeID = nodeID
-	fmt.Printf("Starting node %s...", nodeID)
+	cli.NodePort = nodeID
+	fmt.Printf("Starting node on port %s...", cli.NodePort)
 	fmt.Printf("Miner address detected. ")
 	if len(minerAddress) > 0 {
 		if core.ValidateAddress(minerAddress) {
@@ -20,9 +19,10 @@ func (cli *CLI) startNode(nodeID, minerAddress string) {
 			log.Panic("Failed: Wrong miner address!")
 		}
 	}
-	core.StartServer(cli.NodeID, minerAddress)
+	core.StartServer(cli.NodePort, minerAddress)
 	fmt.Printf("Success.\n")
-	
+
 	//Start GoRoutine for RestAPI
-	api.InitBlockchainAPI()
+	cli.api = API{}
+	cli.api.InitRESTAPI()	
 }

@@ -1,9 +1,5 @@
 package config
 
-import (
-	"github.com/NlaakStudios/GOModels/models/phone"
-)
-
 //github.com/fatih/structs
 
 // Set these values for your ICO
@@ -82,9 +78,9 @@ const (
 
 const (
 	//NodePort is used for blockchain communication/syncing
-	NodePort = uint(3000)
+	NodePort = "3000"
 	//APIPort is used for REST API access to nbode
-	APIPort = uint(4000)
+	RESTPort = "4000"
 )
 
 //EmailStruct contains a breakdown of a email
@@ -93,13 +89,21 @@ type EmailStruct struct {
 	domain string //gmail.com
 }
 
+//PhoneStruct is used to breakdown and store phone numbers
+type PhoneStruct struct {
+	CountryCode string
+	AreaCode    string
+	Number      string
+	PhoneType   byte
+}
+
 //CompanyStruct stores information about the company behind the coin/blockchain
 type CompanyStruct struct {
 	Name    string
 	Country string
 	Ceo     string
 	Contact string
-	Phone   phone.PhoneStruct
+	Phone   PhoneStruct
 }
 
 //PersonNameStruct hold the complete name of a person
@@ -124,7 +128,7 @@ type PersonStruct struct {
 	Name  PersonNameStruct
 	Email EmailStruct
 	Dob   DateStruct
-	Phone phone.PhoneStruct
+	Phone PhoneStruct
 }
 
 //CoinSupplyStruct stores the Total Coin Supply aand the breakdown
@@ -182,7 +186,7 @@ func GetCoinInfo() CoinStruct {
 			CoinCountry,
 			CoinCEO,
 			CoinContact,
-			phone.PhoneStruct{
+			PhoneStruct{
 				"1",
 				"928",
 				"2463691",

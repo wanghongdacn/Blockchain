@@ -15,11 +15,11 @@ func (cli *CLI) send(from, to string, amount int, mineNow bool) {
 		log.Panic("ERROR: Recipient address is not valid")
 	}
 
-	bc := core.NewBlockchain(cli.NodeID)
+	bc := core.NewBlockchain(cli.NodePort)
 	UTXOSet := core.UTXOSet{bc}
 	defer bc.DB.Close()
 
-	wallets, err := core.NewWallets(cli.NodeID)
+	wallets, err := core.NewWallets(cli.NodePort)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -51,7 +51,7 @@ func (cli *CLI) PopulateWallets(from string) {
 
 	//Open Wallets file
 	fmt.Println("Opening wallets.")
-	wallets, err := core.NewWallets(cli.NodeID)
+	wallets, err := core.NewWallets(cli.NodePort)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -65,7 +65,7 @@ func (cli *CLI) PopulateWallets(from string) {
 
 	//Open the blockchain
 	fmt.Println("Opening blockchain.")
-	bc := core.NewBlockchain(cli.NodeID)
+	bc := core.NewBlockchain(cli.NodePort)
 	UTXOSet := core.UTXOSet{bc}
 	defer bc.DB.Close()
 
@@ -88,7 +88,7 @@ func (cli *CLI) PopulateWallets(from string) {
 
 	//Save Wallet file
 	fmt.Println("Saving Wallets.")
-	wallets.SaveToFile(cli.NodeID)
+	wallets.SaveToFile(cli.NodePort)
 	fmt.Printf("Wallets DB Updated\n")
 
 	//TODO: See if wallet has enough to send amount

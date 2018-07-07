@@ -8,7 +8,7 @@ import (
 )
 
 func (cli *CLI) listAddresses() {
-	wallets, err := core.NewWallets(cli.NodeID)
+	wallets, err := core.NewWallets(cli.NodePort)
 	if err != nil {
 		log.Panic(err)
 	}
